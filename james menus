@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int i,j,m,n;
+    int james_menus[i][j];
+    int Avg[i];int val[i];
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<m;j++)
+        {
+            cin>>james_menus[i][j];
+            val[i]=val[i]+james_menus[i][j];
+            
+        }
+    }
+    sort(val,val+n);
+    for(i=0;i<2;i++)
+    {
+        Avg[i]=val[0]/m;
+    }
+    cout<<*min(Avg , Avg+n)<<endl;
+    
+    return 0;
+	
+}
