@@ -1,25 +1,112 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-int main() {
-    int i,j,m,n;
-    int james_menus[i][j];
-    int Avg[i];int val[i];
-    for(i=0;i<n;i++)
+
+int james_menus(int N, int M, int Arr[], int count, int avg)
+{
+    int largest = Arr[0];
+    int duplicate_sum = 0;
+    int slargest = -1;
+    int duplicate[M];
+    int duplicate_size = 0;
+    int ans1, ans2, ans3;
+    for (int i = 1; i < M; i++) // for finding the largest one element in the array
     {
-        for(j=0;j<m;j++)
+        if (Arr[i] > largest)
         {
-            cin>>james_menus[i][j];
-            val[i]=val[i]+james_menus[i][j];
-            
+            slargest = largest;
+            largest = Arr[i];
+            count = count + Arr[0] + Arr[i];
         }
     }
-    sort(val,val+n);
-    for(i=0;i<2;i++)
+
+    avg = count / M;
+    if (largest > avg)
     {
-        Avg[i]=val[0]/m;
+        int ans = 0;
+        ans = largest;
+        // checking for duplicate
+
+        for (int j = 0; j < M; j++)
+        { // filling duplicate elements in the duplicate array
+            if (slargest == Arr[j])
+            {
+                duplicate[j] = Arr[j];
+                largest = duplicate[0];
+            }
+        }
+        duplicate_size = sizeof(duplicate);
+        for (int k = 0; k < duplicate_size; k++)
+        { // checking duplicate sum is greayer or smaller or not
+            duplicate_sum = duplicate_sum + duplicate[k];
+            if (duplicate_sum > ans)
+            {
+                largest = duplicate[0];
+                ans = duplicate[0];
+            }
+        }
     }
-    cout<<*min(Avg , Avg+n)<<endl;
-    
-    return 0;
-	
 }
+
+int main()
+{
+    
+    int N ;
+    int M ;
+    cin>>N>>M;
+    int Arr1[M];
+    int Arr2[M];
+    int Arr3[M];
+    for(int i=0; i<M; i++){
+        cin>> Arr1[i];
+    }
+    for(int i=0; i<M; i++){
+        cin>> Arr2[i];
+    }
+    for(int i=0; i<M; i++){
+        cin>> Arr3[i];
+    }
+     
+    int count1;
+    int count2;
+    int count3;
+    int avg1;int avg2; int avg3;
+    int ans1 = james_menus(N, M, Arr1, count1, avg1); // ans 1=10
+    int ans2 = james_menus(N, M, Arr2, count2, avg2); // ans2  = 3
+    int ans3 = james_menus(N, M, Arr3, count3, avg3); // ans3 = 3
+    int output = 0;
+    if (ans1 == ans2)
+    {
+        if (avg1 > avg2)
+        {
+            output++;
+        }
+        else if (avg1 < avg2)
+        {
+            output++;
+        }
+    }
+    else if (ans2 == ans3)
+    {
+        if (avg2 > avg3)
+        {
+            output++;
+        }
+        if (avg2 < avg3)
+        {
+            output++;
+        }
+    }
+    else if (ans1 == ans3)
+    {
+        if (avg1 > avg3)
+        {
+            output++;
+        }
+        else if (avg1 < avg3)
+        {
+            output++;
+        }
+    }
+    cout << "updated menus are" << output;
+}
+
